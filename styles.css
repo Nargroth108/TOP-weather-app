@@ -1,0 +1,56 @@
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* .container {
+
+} */
+
+form {
+  display: flex;
+  justify-content: space-between;
+  background-color: #3099d0;
+}
+
+.metrics {
+  display: grid;
+  padding-left: 10px;
+  align-items: center;
+}
+
+select {
+  border-radius: 20px;
+  background-color: white;
+  padding: 3px;
+  border: 2px solid black;
+}
+
+.search-bar {
+  padding: 10px;
+  display: flex;
+  align-content: center;
+}
+
+.submit-button {
+  border: 0;
+  background-color: inherit;
+}
+
+#search-input {
+  border-radius: 20px;
+  border: 2px solid black;
+  padding: 3px;
+  margin: 0;
+}
+
+.info-container {
+  background-color: #8bc1dd;
+}
+
+.days-container {
+  /* background-color: #8bc1dd; */
+}
