@@ -45,12 +45,12 @@ function processWeatherData(weatherData, metric) {
     conditionIcon.src = dailyData.conditionIcon;
     conditionText.innerText = dailyData.conditionText;
     if (metric === "Celsius") {
-      temperature.innerText = dailyData.temperatureC;
+      temperature.innerText = `Average temperature: \n ${dailyData.temperatureC} Celsius`;
     } else if (metric === "Farenheit") {
-      temperature.innerText = dailyData.temperatureF;
+      temperature.innerText = `Average temperature: \n ${dailyData.temperatureF} Farenheit`;
     }
-    rain.innerText = dailyData.chanceOfRain;
-    snow.innerText = dailyData.chanceOfSnow;
+    rain.innerText = `Chance of raining: ${dailyData.chanceOfRain}%`;
+    snow.innerText = `Chance of snowing: ${dailyData.chanceOfSnow}%`;
 
     dayCount += 1;
   });
@@ -64,7 +64,6 @@ async function getWeatherData(location, metric) {
     );
 
     const weatherData = await response.json();
-    console.log(weatherData);
 
     processWeatherData(weatherData, metric);
   } catch (error) {
@@ -74,7 +73,7 @@ async function getWeatherData(location, metric) {
 
 getWeatherData("Budapest", "Celsius");
 
-searchButton.addEventListener("click", () => {
-  //   e.preventDefault();
+searchButton.addEventListener("click", (e) => {
+  e.preventDefault();
   getWeatherData(searchInput.value, metricSelector.value);
 });
