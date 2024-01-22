@@ -8,5 +8,71 @@
     <script src="main.js" defer></script>
   </head>
 
-  <body></body>
+  <body>
+    <header>
+      <form>
+        <div class="metrics">
+          <label for="metric"
+            >Choose a metric:
+            <select name="metric" id="metric" data-metric-selector>
+              <option value="Celsius">Celsius</option>
+              <option value="Farenheit">Farenheit</option>
+            </select>
+          </label>
+        </div>
+        <div class="search-bar">
+          <input
+            type="search"
+            id="search-input"
+            data-search-input
+            placeholder="Budapest"
+          />
+          <button type="submit" class="submit-button" data-submit-button>
+            <img src="../src/search.svg" alt="Search Icon" />
+          </button>
+        </div>
+      </form>
+    </header>
+    <div class="info-container">
+      <div class="city" data-city></div>
+      <div class="country" data-country></div>
+      <div class="time" data-time></div>
+    </div>
+
+    <div class="days-container" data-days>
+      <div class="day-1" data="day-1">
+        <div class="conditions" data-conditions>
+          <img src="" alt="Current Weather icon" class="icon" data-icon />
+          <p class="condition-text" data-condition-text></p>
+        </div>
+        <div class="temperature" data-temperature></div>
+        <div class="chances-container">
+          <div class="rain-chance" data-rain></div>
+          <div class="snow-chance" data-snow></div>
+        </div>
+      </div>
+      <div class="day-2" data="day-2">
+        <div class="conditions" data-conditions>
+          <img src="" alt="Current Weather icon" class="icon" data-icon />
+          <p class="condition-text" data-condition-text></p>
+        </div>
+        <div class="temperature" data-temperature></div>
+        <div class="chances-container">
+          <div class="rain-chance" data-rain></div>
+          <div class="snow-chance" data-snow></div>
+        </div>
+      </div>
+      <div class="day-3" data="day-3">
+        <div class="conditions" data-conditions>
+          <img src="" alt="Current Weather icon" class="icon" data-icon />
+          <p class="condition-text" data-condition-text></p>
+        </div>
+        <div class="temperature" data-temperature></div>
+        <div class="chances-container">
+          <div class="rain-chance" data-rain></div>
+          <div class="snow-chance" data-snow></div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

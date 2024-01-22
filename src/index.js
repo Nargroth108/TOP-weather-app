@@ -1,6 +1,60 @@
-// const img = document.querySelector("img");
-// const searchInput = document.querySelector("#search");
-// const submitButton = document.querySelector("#submit");
+const metricSelector = document.querySelector("[data-metric-selector]");
+const searchInput = document.querySelector("[data-search-input]");
+const searchButton = document.querySelector("[data-submit-button]");
+
+function processWeatherData(weatherData, metric) {
+  function objectCreator(count) {
+    const weatherDataObject = {
+      country: weatherData.location.country,
+      city: weatherData.location.name,
+      currentTime: weatherData.location.localtime,
+      date: weatherData.forecast.forecastday[count].date,
+      conditionText: weatherData.forecast.forecastday[count].day.condition.text,
+      conditionIcon: weatherData.forecast.forecastday[count].day.condition.icon,
+      temperatureC: weatherData.forecast.forecastday[count].day.avgtemp_c,
+      temperatureF: weatherData.forecast.forecastday[count].day.avgtemp_f,
+      chanceOfRain:
+        weatherData.forecast.forecastday[count].day.daily_chance_of_rain,
+      chanceOfSnow:
+        weatherData.forecast.forecastday[count].day.daily_chance_of_snow,
+    };
+    return weatherDataObject;
+  }
+
+  const weatherDataObject = objectCreator(0);
+
+  const city = document.querySelector("[data-city]");
+  const country = document.querySelector("[data-country]");
+  const time = document.querySelector("[data-time]");
+
+  city.innerText = weatherDataObject.city;
+  country.innerText = weatherDataObject.country;
+  time.innerText = weatherDataObject.currentTime;
+
+  const days = document.querySelectorAll("[data^=day-]");
+  let dayCount = 0;
+
+  days.forEach((day) => {
+    const dailyData = objectCreator(dayCount);
+    const conditionIcon = day.querySelector("[data-icon]");
+    const conditionText = day.querySelector("[data-condition-text]");
+    const temperature = day.querySelector("[data-temperature]");
+    const rain = day.querySelector("[data-rain]");
+    const snow = day.querySelector("[data-snow]");
+
+    conditionIcon.src = dailyData.conditionIcon;
+    conditionText.innerText = dailyData.conditionText;
+    if (metric === "Celsius") {
+      temperature.innerText = dailyData.temperatureC;
+    } else if (metric === "Farenheit") {
+      temperature.innerText = dailyData.temperatureF;
+    }
+    rain.innerText = dailyData.chanceOfRain;
+    snow.innerText = dailyData.chanceOfSnow;
+
+    dayCount += 1;
+  });
+}
 
 async function getWeatherData(location, metric) {
   try {
@@ -12,37 +66,15 @@ async function getWeatherData(location, metric) {
     const weatherData = await response.json();
     console.log(weatherData);
 
-    const weatherDataObject = {
-      country: weatherData.location.country,
-      city: weatherData.location.name,
-      time: weatherData.location.localtime,
-    };
-
-    console.log(weatherDataObject.time);
-
-    const dayOneObject = {
-      date: weatherData.forecast.forecastday[0].date,
-      conditionText: weatherData.forecast.forecastday[0].day.condition.text,
-      conditionIcon: weatherData.forecast.forecastday[0].day.condition.icon,
-      temperatureC: weatherData.forecast.forecastday[0].day.avgtemp_c,
-      temperatureF: weatherData.forecast.forecastday[0].day.avgtemp_f,
-      chanceOfRain:
-        weatherData.forecast.forecastday[0].day.daily_chance_of_rain,
-      chanceOfSnow:
-        weatherData.forecast.forecastday[0].day.daily_chance_of_snow,
-    };
-
-    console.log(dayOneObject.chanceOfRain);
-
-    return weatherDataObject;
+    processWeatherData(weatherData, metric);
   } catch (error) {
     console.log(error);
-    return error;
   }
 }
 
-getWeatherData("Budapest", "temp_c");
+getWeatherData("Budapest", "Celsius");
 
-// submitButton.addEventListener("click", () => {
-//   getGIF(searchInput.value);
-// });
+searchButton.addEventListener("click", () => {
+  //   e.preventDefault();
+  getWeatherData(searchInput.value, metricSelector.value);
+});
